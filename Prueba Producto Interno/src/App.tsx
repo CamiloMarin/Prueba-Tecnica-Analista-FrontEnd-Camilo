@@ -5,6 +5,7 @@ import { ToastProvider } from './lib/toast-context';
 
 import ProductPage from "./pages/ProductPage";
 import NotFound from "./pages/NotFound";
+import MainLayout from "./layout/layout.tsx";
 
 const queryClient = new QueryClient();
 
@@ -14,9 +15,11 @@ export default function App() {
       <ToastProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ProductPage />} />
-            {/* Ruta para manejar páginas no encontradas recordar poner todo arriba de este path*/}
-            <Route path="*" element={<NotFound />} />
+             <Route path="/" element={<MainLayout />}>
+              <Route index element={<ProductPage />} />
+              {/* Ruta para manejar páginas no encontradas recordar poner todo arriba de este path*/}
+              <Route path="*" element={<NotFound />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ToastProvider>
