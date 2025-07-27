@@ -1,152 +1,67 @@
 // src/components/services/productData.ts
+
 // --- Interfaces para la estructura de la respuesta cruda del API ---
 
-// Interfaz para las imágenes de la variante especifica
-export interface ApiVariantImage {
-  imageId: string;
-  imageUrl: string;
-  imageAlt: string;
+// Interfaz del producto
+export interface Product {
+  id: string; // ID del producto
+  titulo: string; // Título del producto
+  marca: string; // Marca del producto
+  colecciones: string[]; // Colecciones del producto
+  referencia: string; // Referencia del producto
+  descripcion: string; // Descripción del producto
+  caracteristicas: string; // Características del producto 
+  cuidados: string; // Cuidados del producto 
+  variantes?: ProductVariant[]; // Variantes del producto
 }
 
-// Precio
-export interface ApiVariantPrice {
-  original: number; 
-  discount: number; 
+export interface Price {
+  totalPrice: number;
+  priceWithoutDiscount: number;
 }
 
-// Tallz
-export interface ApiVariantSize {
-  variantSize?: string; 
-}
-
-// Color
-export interface ApiVariantColor {
-  variantColor?: string;
-}
-
-// Interfaz para la lista de imágenes del producto por cada variante
-export interface ApiProductVariant {
-  variantId: string; // ID de la variante
-  variantName: string; // Nombre de la variante
-  eanId?: string; // EAN de la variante
-  ApiVariantImage?: ApiVariantImage[]; // Lista de las imagenes de las variantes
-  ApiVariantPrice?: ApiVariantPrice[]; // Precio de la variante
-  ApiVariantSize?: ApiVariantSize[]; // Talla de la variante
-  ApiVariantColor?: ApiVariantColor[]; // Color de la variante
-}
-
-
-// Interfaz para el objeto general del producto crudo
-// Entender que queremos atrapar la información del producto general englobando la información de la variante seleccionada
-
-export interface RawApiResponse {
-  productID: string; // ID del producto
-  productName: string; // Nombre del producto
-  brand?: string; // Marca del producto
-  colecctions?: string[]; // Colecciones del producto
-  ean?: string; // EAN del producto
-  reference?: string; // Referencia del producto
-  variants: ApiProductVariant[]; // Lista de variantes del producto
-}
-
-// --- Interfaces para el tipo de producto transformado en cada caso ---
-
-// Imagenes
-export interface TransformedVariantImage {
-  id: string;
-  url: string;
-  alt: string;
-}
-
-// Precio
-export interface TransformedVariantPrice{
-  price : number; // Precio original
-  discount: number; // Precio con descuento
-}
-
-// Talla
-export interface TranformedVariantSize {
-  size: string;
-}
-
-// Color
-export interface TranformedVariantColor {
-  color: string;
-}
-
-// Producto
+// Interfaz de variante del producto
 export interface ProductVariant {
-  variant_id: string;
-  variant_name: string; 
-  variant_ean?: string;
-  variant_precio_completo: TransformedVariantPrice;
-  variant_precio_oferta: TransformedVariantPrice;
-  variant_talla?: TranformedVariantSize[]; 
-  variant_color?: TranformedVariantColor[];
-  variant_imagenes: TransformedVariantImage[];
-
+  id: string; // ID de la variante
+  titulo: string; // Título de la variante
+  precio: Price; // Precio de la variante
+  imagenes: string[]; // Imágenes de la variante
 }
 
-export type Product = {
-  product_Id: string;
-  product_titulo: string;
-  marca: string;
-  colecciones: string[];
-  referencia: string;
-  variantes: ProductVariant[]; // Array de todas las variantes del producto
-};
-
-// --- Función para obtener y transformar los datos del producto ---
-export const getProduct = async (): Promise<Product | undefined> => {
+export const getProduct = async (): Promise<Product> => {
   const res = await fetch("https://api-frontend-production.up.railway.app/api/products/125829257");
-  if (!res.ok) {
-    throw new Error("Error al obtener producto");
-  }
+  if (!res.ok) throw new Error("No se pudo obtener el producto");
 
-  const data: RawApiResponse[] = await res.json();
-  const rawProduct = data[0]; // Accede al primer elemento del array que retorna la API
+  const data = await res.json();
+  const raw = data[0];
 
-  if (!rawProduct) {
-    return undefined; // No se encontró ningún producto
-  }
-
-// Buscamos las imágenes del todas las variantes del producto
-const variantes = rawProduct.variants.map((item: ApiProductVariant): ProductVariant => ({
-  variant_id: item.variantId,
-  variant_name: item.variantName,
-  variant_ean: item.eanId,
-  variant_precio_completo: {
-    price: item.ApiVariantPrice?.[0]?.original ?? 0,
-    discount: 0,
-  },
-  variant_precio_oferta: {
-    price: item.ApiVariantPrice?.[0]?.original ?? 0,
-    discount: item.ApiVariantPrice?.[0]?.discount ?? 0,
-  },
-  variant_talla: item.ApiVariantSize?.map((size) => ({
-    size: size.variantSize ?? "",
-  })) ?? [],
-  variant_color: item.ApiVariantColor?.map((color) => ({
-    color: color.variantColor ?? "",
-  })) ?? [],
-  variant_imagenes: item.ApiVariantImage?.map((img) => ({
-    id: img.imageId,
-    url: img.imageUrl,
-    alt: img.imageAlt,
-  })) ?? [],
-}));
-
- 
-  const productId = rawProduct.productID || "";
-  const title_product = rawProduct.productName || "";
-  const colecciones = rawProduct.colecctions || [];
+    // Función auxiliar para obtener el precio de un vendedor, manejando casos nulos/indefinidos
+  const getPriceInfo = (item: any) => {
+    const firstSeller = item.sellers?.[0]; // Accede al primer vendedor si existe
+    console.log("getPriceInfo: ", firstSeller); // Log para depuración
+    return {
+      totalPrice: firstSeller?.commertialOffer.Price ?? 0, // Usa 'price' del vendedor, si no existe, 0
+      priceWithoutDiscount: firstSeller?.commertialOffer.PriceWithoutDiscount ?? 0, // Usa 'PriceWithoutDiscount' del vendedor, si no existe, 0
+    };
+    console
+  }; 
 
   return {
-    product_Id: productId,
-    product_titulo: title_product,
-    marca: rawProduct.brand ?? "",
-    colecciones: colecciones,
-    referencia: rawProduct.reference ?? "",
-    variantes,
+    id: raw.productId,
+    titulo: raw.productName,
+    marca: raw.brand ?? "",
+    colecciones: raw.categories ?? [],
+    referencia: raw.productReferenceCode ?? "",
+    descripcion: raw.description ?? "",
+    caracteristicas: raw.CARACTERÍSTICAS ?? "",
+    cuidados: raw["INSTRUCCIONES DE CUIDADO"] ?? "",
+    // Mapea todos los 'items' a ProductVariant sin filtrar por 'imageUrl'
+    variantes: raw.items
+      ?.map((item: any) => ({
+        id: item.itemId,
+        titulo: item.nameComplete,
+        precio: getPriceInfo(item), // Llama a la función para obtener la información de precios
+        imagenes: item.imageUrl ? [item.imageUrl] : [], // Envuelve la 'imageUrl' en un array para que coincida con 'imagenes: string[]'
+      })) ?? [], // Si 'raw.items' es nulo/indefinido, devuelve un array vacío
   };
 };

@@ -5,7 +5,7 @@ import { ToastProvider } from './lib/toast-context';
 
 import ProductPage from "./pages/ProductPage";
 import NotFound from "./pages/NotFound";
-import MainLayout from "./layout/layout.tsx";
+import MainLayout from "./layout/layout";
 
 const queryClient = new QueryClient();
 

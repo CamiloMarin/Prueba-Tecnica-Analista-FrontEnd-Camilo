@@ -1,13 +1,8 @@
 import React from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Thumbs, FreeMode, Autoplay } from 'swiper/modules'; // Importa más módulos si los vas a permitir configurar
 
-// Importa los estilos de Swiper (asegúrate de que estén instalados y configurados globalmente o aquí)
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs'; // Si planeas usar miniaturas
-import 'swiper/css/free-mode'; // Si planeas usar free-mode
 
 // Interfaz para el tipo de imagen que espera el slider
 export interface SliderImage {
