@@ -25,7 +25,7 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </ToastProvider>
-      </CartProvider>
+    </CartProvider>
     </QueryClientProvider>
   );
 }

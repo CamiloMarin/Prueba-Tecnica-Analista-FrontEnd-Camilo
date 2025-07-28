@@ -1,6 +1,6 @@
 // types/Product.ts
 export interface TypeoFProduct {
-  id: string;
+  id: number;
   name: string;
   price: number;
   size?: string;

@@ -2,10 +2,15 @@
 
 //Carrito
 import { useCart } from "@/components/context/cartContext";
+// tipo de producto para el carrito
 import type { TypeoFProduct } from "@/components/types/Product";
 
-// Usestate
+import  Cart from "@/components/ui/CartMenu/cart";
+
 import { useState } from "react";
+
+// Save btn
+
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -90,6 +95,24 @@ export default function ProductPage() {
     );
   }
 
+
+  // Logica del carrito
+/* const {state, dispach} = useCart()
+const [cartUpdated, setCartUpdated] = useState(false)
+const [openCart, setOpenCart] = useState(false)
+
+const addToCart = (product.id)
+
+const openCartHandler = () => {
+  setOpenCart(true)
+}
+
+const closeCartHandler = () => {
+  setOpenCart(false);
+} */
+
+
+
   // COLECCION: Obtén la primera colección si el array existe y no está vacío
   const firstCollection =
     product.colecciones && product.colecciones.length > 0
@@ -145,11 +168,13 @@ export default function ProductPage() {
     speed: 1200,
     spaceBetween: 10,
     loop: true,
-    pagination: true,
+    pagination: false,
+    thumbs: false,
     navigation: true,
     autoplay: true,
     delay: 15000,
     freeMode: true,
+
   };
   return (
     <div className="index-page">
@@ -165,6 +190,8 @@ export default function ProductPage() {
               className="custom-swiper-container"
             />{" "}
             <button className="cart_button">Agregar al carrito</button>{" "}
+            <button className="cart_button tiendas_btn">Ver disponibilidad en tiendas</button>{" "}
+            <button className="save_product"><img src="/save-instagram.png" alt="save logo" /></button>{" "}
           </div>
         </div>{" "}
         <div className="first_container_product_information">
