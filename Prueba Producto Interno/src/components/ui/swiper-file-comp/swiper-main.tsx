@@ -21,6 +21,7 @@ export interface SwiperConfig {
   autoplay?: boolean; // Controlar si tiene autoplay
   delay?: number; // Retraso para autoplay
   freeMode?: boolean; // Si se puede arrastrar libremente
+  speed?: number;
   thumbs?: boolean; // Si tiene miniaturas (requiere otro Swiper para las miniaturas)
   // Puedes añadir más configuraciones de Swiper que quieras exponer
 }
@@ -71,6 +72,7 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ images, config,
         spaceBetween={finalConfig.spaceBetween}
         slidesPerView={finalConfig.slidesPerView}
         loop={useLoop}
+        speed={finalConfig.speed} 
         {...(finalConfig.pagination && { pagination: { clickable: true } })} // Solo añade si pagination es true
         {...(finalConfig.navigation && { navigation: true })} // Solo añade si navigation es true
         {...(finalConfig.autoplay && { autoplay: { delay: finalConfig.delay, disableOnInteraction: false } })} // Configuración de autoplay

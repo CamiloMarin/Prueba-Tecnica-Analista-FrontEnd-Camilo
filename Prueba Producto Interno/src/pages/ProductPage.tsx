@@ -113,13 +113,14 @@ const sliderImages: SliderImage[] =
 
 
   const mySliderConfig: SwiperConfig = {
-  slidesPerView: 4,
-  spaceBetween: 0,
+  slidesPerView: 3,
+  speed: 1200,
+  spaceBetween: 10,
   loop: true,
   pagination: true,
   navigation: true,
   autoplay: true,
-  delay: 3000,
+  delay: 15000,
   freeMode: true,
 };
 
