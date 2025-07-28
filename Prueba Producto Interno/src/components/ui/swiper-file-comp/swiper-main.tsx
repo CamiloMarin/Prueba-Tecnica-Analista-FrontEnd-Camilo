@@ -67,6 +67,15 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({
   freeMode: true,
 };
 
+const breakpoints = {
+  320: { slidesPerView: 1, spaceBetween: 10 },
+  640: { slidesPerView: 2, spaceBetween: 15 },
+  1020: { slidesPerView: 2, spaceBetween: 15 },
+  1200: { slidesPerView: 3, spaceBetween: 20 },
+  1400: { slidesPerView: 3, spaceBetween: 20 },
+  
+};
+
   const modules = [Pagination, Navigation, Autoplay, FreeMode];
   if (finalConfig.thumbs) modules.push(Thumbs);
 
@@ -83,7 +92,7 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({
         spaceBetween={finalConfig.spaceBetween}
         slidesPerView={finalConfig.slidesPerView}
         loop={useLoop}
-        breakpoints={finalConfig.breakpoints}
+        breakpoints={breakpoints}
         speed={finalConfig.speed}
         thumbs={finalConfig.thumbs ? { swiper: thumbsSwiper } : undefined}
         pagination={finalConfig.pagination ? { clickable: true } : undefined}

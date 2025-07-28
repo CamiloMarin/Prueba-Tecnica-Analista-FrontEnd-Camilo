@@ -128,9 +128,9 @@ section.product-page {
   width: 45px;
 }
 
-.talla_container button:hover{
-    background: #1c1c1c;
-    color: white;
+.talla_container button:hover {
+  background: #1c1c1c;
+  color: white;
 }
 
 span.talla_title,
@@ -193,7 +193,6 @@ span.color_title {
   max-height: calc(100vh - 80px) !important;
 }
 
-
 .slider_prefered.slider-producto {
   position: sticky;
   top: 0;
@@ -225,89 +224,87 @@ span.color_title {
 
 .product-image-slider .swiper-button-next,
 .product-image-slider .swiper-button-prev {
-    background: #1c1c1c;
-    background: linear-gradient(90deg, #1c1c1c 0%, #1c1c1c 100%);
-    backdrop-filter: blur(10px);
-    color: transparent !important;
-    border-radius: 6px !important;
-    aspect-ratio: 1 / 1;
-    width: 35px !important;
-    height: 35px !important;
-    margin-top: 0 !important;
-    border: 1px solid #e7e7e7;
+  background: #1c1c1c;
+  background: linear-gradient(90deg, #1c1c1c 0%, #1c1c1c 100%);
+  backdrop-filter: blur(10px);
+  color: transparent !important;
+  border-radius: 6px !important;
+  aspect-ratio: 1 / 1;
+  width: 35px !important;
+  height: 35px !important;
+  margin-top: 0 !important;
+  border: 1px solid #e7e7e7;
 }
 
 .product-image-slider .swiper-button-next::after {
-    content: "→" !important;
-    position: absolute;
-    top: 0%;
-    opacity: 1;
-    color: white;
-    scale: 0.6;
-    bottom: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  content: "→" !important;
+  position: absolute;
+  top: 0%;
+  opacity: 1;
+  color: white;
+  scale: 0.6;
+  bottom: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-image-slider .swiper-button-prev::after {
-   transform: scaleX(-1);
-    content: "→" !important;
-    position: absolute;
-    top: 0%;
-    opacity: 1;
-    color: white;
-    scale: 0.6;
-    bottom: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  transform: scaleX(-1);
+  content: "→" !important;
+  position: absolute;
+  top: 0%;
+  opacity: 1;
+  color: white;
+  scale: 0.6;
+  bottom: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-image-slider .cart_button {
-    width: 300px;
-    position: absolute;
-    top: 91%;
-    left: 50%;
-    height: 50px;
-    transform: translateX(-50%);
-    z-index: 99;
-    border-radius: 0px !important;
-    text-transform: uppercase;
-    font-size: 0.85em;
-    letter-spacing: 2px;
-    font-weight: 400;
+  width: 300px;
+  position: absolute;
+  top: 91%;
+  left: 50%;
+  height: 50px;
+  transform: translateX(-50%);
+  z-index: 99;
+  border-radius: 0px !important;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 2px;
+  font-weight: 400;
 }
 
 .tiendas_btn {
-    left: calc(50% - 320px) !important;
-    background-color: beige;
-    color: #1c1c1c;
-    border: 2px solid #1c1c1c;
+  left: calc(50% - 320px) !important;
+  background-color: beige;
+  color: #1c1c1c;
+  border: 2px solid #1c1c1c;
 }
 
 .tiendas_btn:hover {
-    border: 2px solid #1c1c1c;
+  border: 2px solid #1c1c1c;
 }
-
 
 /* VISOR */
 
 .slider_recomendados {
   margin-top: 40px;
-
 }
 
 .titulo_slider {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    padding: 0 30px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-weight: bold;
-    color: #1c1c1c;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  padding: 0 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  color: #1c1c1c;
 }
 
 .card_producto_recomendado {
@@ -339,14 +336,14 @@ span.color_title {
   font-size: 0.85em;
 }
 
-.visor_variantes{
-    padding-top: 30px;
-    padding-bottom: 30px;
+.visor_variantes {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .visor_variantes .swiper-slide {
-    height: auto !important;
-    aspect-ratio: auto;
+  height: auto !important;
+  aspect-ratio: auto;
 }
 
 /* Arrows del visor */
@@ -354,7 +351,11 @@ span.color_title {
 .visor_variantes .swiper-button-next,
 .visor_variantes .swiper-button-prev {
   background: #111111;
-  background: radial-gradient(circle, #111111 0%, rgba(22, 22, 22, 0.85) 100% 100%);
+  background: radial-gradient(
+    circle,
+    #111111 0%,
+    rgba(22, 22, 22, 0.85) 100% 100%
+  );
   backdrop-filter: blur(10px);
   color: transparent !important;
   border-radius: 100px !important;
@@ -386,50 +387,84 @@ span.color_title {
 /* THUMNAILS*/
 
 div#swiper-thumbnails::before {
-    content: "";
-    width: 250px;
-    height: 100%;
-    background-color: black;
-    display: flex;
-    position: absolute;
-    padding-top: 10px;
+  content: "";
+  width: 250px;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  position: absolute;
+  padding-top: 10px;
 }
 
 div#swiper-thumbnails {
-    height: auto;
-    width: 250px;
-    position: absolute;
-    aspect-ratio: auto;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    bottom: 0%;
-    left: 200px;
+  height: auto;
+  width: 250px;
+  position: absolute;
+  aspect-ratio: auto;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  bottom: 0%;
+  left: 200px;
 }
 
 /* Logo */
 
 .save_product {
-    background-color: beige;
-    width: 40px;
-    height: auto;
-    position: absolute;
-    top: 92%;
-    left: calc(50% - 530px);
-    transform: translateX(-50%);
-    z-index: 99;
-    border: 2px solid #1c1c1c;
-    padding: 5px;
-    display: none;
+  background-color: beige;
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 92%;
+  left: calc(50% - 530px);
+  transform: translateX(-50%);
+  z-index: 99;
+  border: 2px solid #1c1c1c;
+  padding: 5px;
+  display: none;
 }
-.save_product:hover{
-      border: 2px solid #1c1c1c;
+.save_product:hover {
+  border: 2px solid #1c1c1c;
 }
 
 .save_product img {
-    width: 100%;
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
+button.mobile-menu-toggle {
+  background: #e1e1e1;
+  color: black;
+}
+
+/*Query*/
+
+@media screen and (min-with: 1200px) and (max-width: 1399px) {
+  .product_information {
+    width: 350px;
+  }
+}
+
+@media screen and (min-with: 1000px) and (max-width: 1199px) {
+  .product_information {
+    width: 300px !important;
+  }
+
+  button.cart_button {
+    width: 200px;
+    left: calc(50% - 20px) !important;
+    font-size: 0.6em;
+  }
+
+  button.cart_button .tiendas_btn {
+    left: calc(50% - 300px) !important;
+  }
+}
+
+@media screen and (min-with: 768px) and (max-width: 999px) {
+}
+
+@media screen and (max-width: 767px) {
+}

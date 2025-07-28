@@ -314,6 +314,7 @@ const closeCartHandler = () => {
                 autoplay={{ delay: 15000 }}
                 loop={true}
                 className="swiper_recomendados"
+                
               >
                 {" "}
                 {resumenVariantes.map((producto) => (
