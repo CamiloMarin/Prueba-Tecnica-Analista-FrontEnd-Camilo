@@ -1,15 +1,16 @@
 section.product-page {
-    display: flex;
-    margin-top: -80px;
-    flex-direction: column;
+  display: flex;
+  margin-top: -80px;
+  flex-direction: column;
 }
 
-.first_container_product_information, .second_container_product_information {
-    width: fit-content;
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    align-self: end
+.first_container_product_information,
+.second_container_product_information {
+  width: fit-content;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-self: end;
 }
 
 .first_container_product_information h1 {
@@ -19,230 +20,358 @@ section.product-page {
 }
 
 .product_information {
-     width: 450px;
-    position: relative;
-    background: #ffffff;
-    background: radial-gradient(circle, rgb(243 243 243) 0%, rgb(209 209 209 / 85%) 100% 100%);
-    backdrop-filter: blur(10px);
-    padding: 30px;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    border-radius: 14px;
-    border: 1px solid #cdcdcd;
+  width: 450px;
+  position: relative;
+  background: #ffffff;
+  background: radial-gradient(
+    circle,
+    rgb(243 243 243) 0%,
+    rgb(209 209 209 / 85%) 100% 100%
+  );
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  border-radius: 14px;
+  border: 1px solid #cdcdcd;
 }
 
 .colections {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    font-size: 0.85em;
-    padding: 0px !important;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: 4px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-size: 0.85em;
+  padding: 0px !important;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 4px;
 }
 
-.no_margin{
-    margin: 0;
+.no_margin {
+  margin: 0;
 }
 
-.id_product{
-    font-size: 0.85em;
-    font-weight: 300;
-    color: rgb(184, 184, 184);
-    text-shadow: 1px 1px 1px #bbbbbb;
-    margin: 0;
+.id_product {
+  font-size: 0.85em;
+  font-weight: 300;
+  color: rgb(184, 184, 184);
+  text-shadow: 1px 1px 1px #bbbbbb;
+  margin: 0;
 }
 
-.marca{
-    font-weight: 600;
+.marca {
+  font-weight: 600;
 }
 
-.price_doll{
-    font-weight: 600;
-    color: black;
-    font-size: 0.65em;
-    text-transform: uppercase;
+.price_doll {
+  font-weight: 600;
+  color: black;
+  font-size: 0.65em;
+  text-transform: uppercase;
 }
 
 .price_container {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .price_container p {
-    width: 50%;
+  width: 50%;
 }
 
-.price_after_discount > *{
-    color: #AD1E27;
+.price_after_discount > * {
+  color: #ad1e27;
 }
 
 .price_after_discount .line-through {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
-.tag_discount{
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 30px 30px 0 0; ;
-    background-color: #AD1E27;
-    border-radius: 5px;
+.tag_discount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 30px 30px 0 0;
+  background-color: #ad1e27;
+  border-radius: 5px;
 }
-.discount_title{
-    color: white;
-    font-weight: 600;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    margin: 8px 10px;
+.discount_title {
+  color: white;
+  font-weight: 600;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  margin: 8px 10px;
 }
 
 /*talla y color*/
 
 .talla_container {
-    display: flex;
-    row-gap: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  row-gap: 10px;
+  flex-wrap: wrap;
 }
 
 .talla_container button {
-    background: transparent;
-    border: 1px solid #000;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    font-size: 0.8em;
-    font-weight: 400;
-    color: black;
-    aspect-ratio: 1 / 1;
-    width: 45px;;
+  background: beige;
+  border: 1px solid #1c1c1c;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: black;
+  aspect-ratio: 1 / 1;
+  width: 45px;
 }
 
-span.talla_title, span.color_title  {
-    font-weight: 600;
-    padding-bottom: 15px;
+.talla_container button:hover{
+    background: #1c1c1c;
+    color: white;
+}
+
+span.talla_title,
+span.color_title {
+  font-weight: 600;
+  padding-bottom: 15px;
 }
 
 .index_variant_container.talla_parent {
-    display: grid;
-    padding-bottom: 20px;
+  display: grid;
+  padding-bottom: 20px;
 }
 
-.color_container{
-    display: flex;
-    row-gap: 10px;
-    gap: 10px;
-    flex-wrap: wrap;
+.color_container {
+  display: flex;
+  row-gap: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.color_container button{
-    background-color: transparent;
+.color_container button {
+  background-color: transparent;
 }
 
 .index_variant_container.color_parent {
-    display: grid;
-    padding-bottom: 20px;
+  display: grid;
+  padding-bottom: 20px;
 }
 
 [data-color="Negro"] {
-    border: 1px solid black;
-    border-radius: 100px;
-    aspect-ratio: 1 / 1;
-    width: 40px;
-    font-size: 0.1px;
+  border: 1px solid black;
+  border-radius: 100px;
+  aspect-ratio: 1 / 1;
+  width: 40px;
+  font-size: 0.1px;
 }
 
 [data-color="Negro"]::after {
-    content: " ";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(28, 28, 28);
-    border-radius: 100px;
-    top: 0px;
-    left: 0px;
-    scale: 0.7;
-    position: relative;
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(28, 28, 28);
+  border-radius: 100px;
+  top: 0px;
+  left: 0px;
+  scale: 0.7;
+  position: relative;
 }
 
 /*SLIDER*/
 .product-image-slider .custom-swiper-container {
-    width: 100%;
-    height: 100vh;
-
+  width: 100%;
+  height: 100vh;
 }
 
-.product-image-slider .custom-swiper-container .swiper-slide img{
-    height: 100%;
-    object-fit: cover !important;
-        max-height: calc(100vh - 80px) !important;
+.product-image-slider .custom-swiper-container .swiper-slide img {
+  height: 100%;
+  object-fit: cover !important;
+  max-height: calc(100vh - 80px) !important;
 }
 
-.product-image-slider .swiper-slide{
-    height: (100vh - 80px);
-    max-height: (100vh - 80px);
+.product-image-slider .swiper-slide {
+  height: (100vh - 80px);
+  max-height: (100vh - 80px);
 }
 
 .slider_prefered.slider-producto {
-    position: sticky;
-    top: 0;
-
+  position: sticky;
+  top: 0;
 }
-
 .first_container_product_information {
-    margin-top: -85vh;
+  margin-top: -85vh;
 }
 
-.product-image-slider .swiper-pagination{
-    bottom: 15px !important;
-    left: 300px !important;
-    text-align: left;
+.product-image-slider .swiper-pagination {
+  bottom: 15px !important;
+  left: 300px !important;
+  text-align: left;
 }
 
 .product-image-slider .swiper {
-    height: 100%;
+  height: 100%;
 }
 
-.swiper-button-prev{
-    left: 30px !important;
-    top: 90% !important;
-    bottom: 0;
+.product-image-slider .swiper-button-prev {
+  left: 30px !important;
+  top: 91% !important;
+  bottom: 0;
 }
-.swiper-button-next{
-    left: 100px !important;
-    top: 90% !important;
-    bottom: 0;
+.product-image-slider .swiper-button-next {
+  left: 100px !important;
+  top: 91% !important;
+  bottom: 0;
 }
 
-.swiper-button-next, .swiper-button-prev {
-    background: #cccccc;
+.product-image-slider .swiper-button-next,
+.product-image-slider .swiper-button-prev {
+    background: #1c1c1c;
+    background: linear-gradient(90deg, #1c1c1c 0%, #1c1c1c 100%);
+    backdrop-filter: blur(10px);
     color: transparent !important;
-    border-radius: 100px !important;
+    border-radius: 6px !important;
     aspect-ratio: 1 / 1;
-    width: 50px !important;
-    height: 50px !important;
+    width: 35px !important;
+    height: 35px !important;
+    margin-top: 0 !important;
+    border: 1px solid #e7e7e7;
 }
 
- .swiper-button-next::after{
-      content: '→' !important; /* Or use a different arrow character like '\2192' or an icon font */
-      position: absolute;
-      top: 0%;
-      opacity: 1; /* Initially hide the arrow */
-      color: #000;
-      scale: 0.8;
-    }
+.product-image-slider .swiper-button-next::after {
+    content: "→" !important;
+    position: absolute;
+    top: 0%;
+    opacity: 1;
+    color: white;
+    scale: 0.6;
+    bottom: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.swiper-button-prev::after{
-      content: '→' !important; /* Or use a different arrow character like '\2192' or an icon font */
-      position: absolute;
-      transform: scaleX(-1);
-      top: 0%;
-      opacity: 1; /* Initially hide the arrow */
-      color: #000;
-      scale: 0.8;
-    }
+.product-image-slider .swiper-button-prev::after {
+   transform: scaleX(-1);
+    content: "→" !important;
+    position: absolute;
+    top: 0%;
+    opacity: 1;
+    color: white;
+    scale: 0.6;
+    bottom: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image-slider .cart_button {
+    width: 300px;
+    position: absolute;
+    top: 91%;
+    left: 50%;
+    height: 50px;
+    transform: translateX(-50%);
+    z-index: 99;
+    border-radius: 0px !important;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 2px;
+    font-weight: 400;
+}
+
+
+/* VISOR */
+
+.slider_recomendados {
+  margin-top: 40px;
+
+}
+
+.titulo_slider {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    padding: 0 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: #1c1c1c;
+}
+
+.card_producto_recomendado {
+  background: #f6f6f6ff;
+  height: 100%;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.049);
+}
+
+.imagen_producto {
+  width: 100%;
+  max-height: 100% !important;
+  height: 500px;
+  object-fit: cover;
+  aspect-ratio: 341 / 400 !important;
+}
+
+.nombre_producto {
+  font-size: 0.85rem;
+  margin: 10px 0 5px;
+  text-align: left;
+}
+
+.precio_producto {
+  font-weight: bold;
+  color: #1a202c;
+  text-align: left;
+  font-size: 0.85em;
+}
+
+.visor_variantes{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.visor_variantes .swiper-slide {
+    height: auto !important;
+    aspect-ratio: auto;
+}
+
+/* Arrows del visor */
+
+.visor_variantes .swiper-button-next,
+.visor_variantes .swiper-button-prev {
+  background: #111111;
+  background: radial-gradient(circle, #111111 0%, rgba(22, 22, 22, 0.85) 100% 100%);
+  backdrop-filter: blur(10px);
+  color: transparent !important;
+  border-radius: 100px !important;
+  aspect-ratio: 1 / 1;
+  width: 50px !important;
+  height: 50px !important;
+  margin-top: 0 !important;
+}
+
+.visor_variantes .swiper-button-next::after {
+  content: "→" !important; /* Or use a different arrow character like '\2192' or an icon font */
+  position: absolute;
+  top: 0%;
+  opacity: 1; /* Initially hide the arrow */
+  color: #ffffff;
+  scale: 0.8;
+}
+
+.visor_variantes .swiper-button-prev::after {
+  content: "→" !important; /* Or use a different arrow character like '\2192' or an icon font */
+  position: absolute;
+  transform: scaleX(-1);
+  top: 0%;
+  opacity: 1; /* Initially hide the arrow */
+  color: #ffffff;
+  scale: 0.8;
+}

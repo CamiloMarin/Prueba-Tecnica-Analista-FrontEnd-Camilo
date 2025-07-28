@@ -1,16 +1,30 @@
 // src/pages/ProductPage.tsx
 
+//Carrito
+import { useCart } from '@/components/context/cartContext';
+import type { TypeoFProduct } from '@/components/types/Product';
+
+// Usestate
+import { useState } from 'react';
+
+// Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import "@/components/ui/swiper-file-comp/swiper-bundle.css";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
 import "@/pages-Css/ProductPage.css";
 import { useQuery } from "@tanstack/react-query";
 // Importa los tipos actualizados. 'type ProductVariant' es correcto incluso si es una interfaz.
-import {
-  getProduct,
-  type Product,
-} from "@/components/services/productData.ts";
-//acordeon
-import { ExpandableSection } from '@/components/ui/Acordeon/acordeon.tsx';
-import '@/components/ui/Acordeon/Acordeon.css';
+import { getProduct, type Product } from "@/components/services/productData.ts";
 
+// Visor
+import {
+  fetchPrimeras8VariantesGlobal,
+  type ResumenVariante,
+} from "@/components/services/recomendedProductsData";
+//acordeon
+import { ExpandableSection } from "@/components/ui/Acordeon/acordeon.tsx";
+import "@/components/ui/Acordeon/Acordeon.css";
 
 import ProductImageSlider, {
   type SliderImage,
@@ -18,6 +32,7 @@ import ProductImageSlider, {
 } from "@/components/ui/swiper-file-comp/swiper-main.tsx";
 
 export default function ProductPage() {
+  // Primer query
   const queryId = "125829257";
   const {
     data: product,
@@ -27,6 +42,18 @@ export default function ProductPage() {
   } = useQuery<Product | undefined, Error>({
     queryKey: [queryId],
     queryFn: getProduct,
+  });
+
+  // Segundo query
+  // Segundo useQuery para obtener el resumen de variantes
+  const {
+    data: resumenVariantes,
+    isLoading: isLoadingResumen,
+    isError: isErrorResumen,
+    error: errorResumen,
+  } = useQuery<ResumenVariante[], Error>({
+    queryKey: ["resumen-variantes"],
+    queryFn: fetchPrimeras8VariantesGlobal,
   });
 
   // --- Muestra el estado de carga ---
@@ -103,140 +130,172 @@ export default function ProductPage() {
     product.variantes?.[0]?.precio.priceWithoutDiscount || 0
   );
 
-  // Inicializador del swiper del slider del producto:
-const sliderImages: SliderImage[] =
-  product.variantes?.[0]?.imagenes.map((img, idxImg) => ({
-    id: `v0-${idxImg}`,
-    url: img.imageUrl,
-    alt: img.imageTxt,
-  })) ?? [];
+  // Estados del carrito
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
 
+
+  // Inicializador del swiper del slider del producto:
+  const sliderImages: SliderImage[] =
+    product.variantes?.[0]?.imagenes.map((img, idxImg) => ({
+      id: `v0-${idxImg}`,
+      url: img.imageUrl,
+      alt: img.imageTxt,
+    })) ?? [];
 
   const mySliderConfig: SwiperConfig = {
-  slidesPerView: 3,
-  speed: 1200,
-  spaceBetween: 10,
-  loop: true,
-  pagination: true,
-  navigation: true,
-  autoplay: true,
-  delay: 15000,
-  freeMode: true,
-};
+    slidesPerView: 3,
+    speed: 1200,
+    spaceBetween: 10,
+    loop: true,
+    pagination: true,
+    navigation: true,
+    autoplay: true,
+    delay: 15000,
+    freeMode: true,
+  };
 
   return (
     <div className="index-page">
       <section className="product-page">
-
-
         <div className="slider_prefered slider-producto">
           {/* SWIPER SLIDER / Con las imagenes */}
-          
-        <div className="product-image-slider">
-          
-          <ProductImageSlider
-            images={sliderImages}
-            config={mySliderConfig}
-            className="custom-swiper-container"
-          />
+
+          <div className="product-image-slider">
+            <ProductImageSlider
+              images={sliderImages}
+              config={mySliderConfig}
+              className="custom-swiper-container"
+            />
+            <button className="cart_button">Agregar al carrito</button>
+          </div>
         </div>
-        </div>
-
-
-
 
         <div className="first_container_product_information">
           <div className="product_information">
             <span className="id_product">ID: {product.id}</span>
             <h3 className="colections no_margin">{firstCollection}</h3>{" "}
-             <h1>{product.titulo}</h1>
-             <div className="price_container">
-                <p className="no_margin price_after_discount"><span className="line-through">{formattedsinDescuento}</span> <span className="price_doll">Col</span></p> 
-                <p className="no_margin" >Total: {formattedTotal} <span className="price_doll">Col</span></p>
-             </div>
+            <h1>{product.titulo}</h1>
+            <div className="price_container">
+              <p className="no_margin price_after_discount">
+                <span className="line-through">{formattedsinDescuento}</span>{" "}
+                <span className="price_doll">Col</span>
+              </p>
+              <p className="no_margin">
+                Total: {formattedTotal} <span className="price_doll">Col</span>
+              </p>
+            </div>
             {/* Esto debería de ser positivo si existira un descuento pero yo solo lo muestro por razones esteticas */}
             {porcentajeDescuento == 0 && (
               <div className="text-red-600 font-semibold tag_discount">
                 <p className="discount_title">- {porcentajeDescuento}% OFF</p>
               </div>
             )}
-
-
-
-              {/*Color*/}
-          <div className="index_variant_container color_parent">
-            <span className="color_title">
-              Color:
-            </span>
-            <div className="color_container">
-              {product.variantes && product.variantes.length > 0 ? (
-                // Filtra colores únicos antes de renderizar
-                Array.from(
-                  new Set(product.variantes.map((variante) => variante.color))
-                ).map((color, idx) => (
-                  <button className="color no_margin" key={idx} data-color={color}>
+            {/*Color*/}
+            <div className="index_variant_container color_parent">
+              <span className="color_title">Color:</span>
+              <div className="color_container">
+                {product.variantes && product.variantes.length > 0 ? (
+                  // Filtra colores únicos antes de renderizar
+                  Array.from(
+                    new Set(product.variantes.map((variante) => variante.color))
+                  ).map((color, idx) => (
+                  <button
+                    className={`color no_margin ${selectedColor === color ? 'selected' : ''}`}
+                    key={idx}
+                    data-color={color}
+                    onClick={() => setSelectedColor(color)}
+                  >
                     {color || "N/A"}
                   </button>
-                ))
-              ) : (
-                <p className="color no_margin">Color: N/A</p>
-              )}
-            </div>
-          </div>
-
-
-
-            {/*Talla*/}
-            <div className="index_variant_container talla_parent">
-            <span className="talla_title">
-              Talla:
-            </span>
-              <div className="talla_container">
-              {product.variantes && product.variantes.length > 0 ? (
-                product.variantes.map((variante, idx) => (
-                  <button className="talla no_margin" key={idx} >
-                    {variante.talla || "N/A"}
-                  </button>
-                ))
-              ) : (
-                <p className="talla no_margin">Talla: N/A</p>
-              )}
+                  ))
+                ) : (
+                  <p className="color no_margin">Color: N/A</p>
+                )}
               </div>
             </div>
-
-
-
-
-            <p className="marca no_margin" >Marca: {product.marca}</p>
-            <p className="no_margin" >Referencia: {product.referencia}</p>
+            {/*Talla*/}
+            <div className="index_variant_container talla_parent">
+              <span className="talla_title">Talla:</span>
+              <div className="talla_container">
+                {product.variantes && product.variantes.length > 0 ? (
+                  product.variantes.map((variante, idx) => (
+                    <button className="talla no_margin" key={idx}>
+                      {variante.talla || "N/A"}
+                    </button>
+                  ))
+                ) : (
+                  <p className="talla no_margin">Talla: N/A</p>
+                )}
+              </div>
+            </div>
+            <p className="marca no_margin">Marca: {product.marca}</p>
+            <p className="no_margin">Referencia: {product.referencia}</p>
           </div>
         </div>
 
         <div className="second_container_product_information">
           {/* Detalles de la Variante Seleccionada */}
 
-
           <div className="product_information">
             <h3>Información del producto: </h3>
             <div className="enclose_information_acordeon">
-        
               <ExpandableSection title="Descripción" defaultOpen={true}>
                 <p className="info_p">{product.descripcion}</p>
               </ExpandableSection>
               <hr className="guntam_line_expandible"></hr>
               {/*Como el contenido recibe un html pongo esto así: */}
               <ExpandableSection title="Características" defaultOpen={true}>
-                <div className="info_p" dangerouslySetInnerHTML={{ __html: product.caracteristicas }} />
+                <div
+                  className="info_p"
+                  dangerouslySetInnerHTML={{ __html: product.caracteristicas }}
+                />
               </ExpandableSection>
               <hr className="guntam_line_expandible"></hr>
               <ExpandableSection title="Cuidado" defaultOpen={true}>
                 <p className="info_p">{product.cuidados}</p>
               </ExpandableSection>
             </div>
-
-            
-
           </div>
+        </div>
+      </section>
+
+      <section className="visor_variantes">
+        <div>
+          <section className="slider_recomendados">
+            <h3 className="titulo_slider">Productos recomendados</h3>
+
+            {isLoadingResumen && <p>Cargando productos recomendados...</p>}
+            {isErrorResumen && <p>Error: {errorResumen?.message}</p>}
+
+            {resumenVariantes && resumenVariantes.length > 0 && (
+              <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                spaceBetween={10}
+                slidesPerView={4}
+                navigation
+                autoplay={{ delay: 15000 }}
+                loop={true}
+                className="swiper_recomendados"
+              >
+                {resumenVariantes.map((producto) => (
+                  <SwiperSlide key={producto.id}>
+                    <div className="card_producto_recomendado">
+                      <img
+                        src={producto.imagen ?? ""}
+                        alt={producto.nombre}
+                        className="imagen_producto"
+                      />
+                      <h4 className="nombre_producto">{producto.nombre}</h4>
+                      <p className="precio_producto">
+                        {formatearPrecio(producto.precio.total)}
+                      </p>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
+          </section>
         </div>
       </section>
     </div>
