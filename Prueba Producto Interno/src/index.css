@@ -11,6 +11,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+button:focus, button:focus-visible {
+    outline: none !important;
+}
+
+
 
 a {
   font-weight: 500;

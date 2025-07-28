@@ -6,8 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getProduct,
   type Product,
-  type ProductVariant,
 } from "@/components/services/productData.ts";
+//acordeon
+import { ExpandableSection } from '@/components/ui/Acordeon/acordeon.tsx';
+import '@/components/ui/Acordeon/Acordeon.css';
+
+
 import ProductImageSlider, {
   type SliderImage,
   type SwiperConfig,
@@ -99,20 +103,46 @@ export default function ProductPage() {
     product.variantes?.[0]?.precio.priceWithoutDiscount || 0
   );
 
+  // Inicializador del swiper del slider del producto:
+const sliderImages: SliderImage[] =
+  product.variantes?.[0]?.imagenes.map((img, idxImg) => ({
+    id: `v0-${idxImg}`,
+    url: img.imageUrl,
+    alt: img.imageTxt,
+  })) ?? [];
+
+
+  const mySliderConfig: SwiperConfig = {
+  slidesPerView: 4,
+  spaceBetween: 0,
+  loop: true,
+  pagination: true,
+  navigation: true,
+  autoplay: true,
+  delay: 3000,
+  freeMode: true,
+};
+
   return (
     <div className="index-page">
       <section className="product-page">
+
+
+        <div className="slider_prefered slider-producto">
+          {/* SWIPER SLIDER / Con las imagenes */}
+          
         <div className="product-image-slider">
-          {/* Selector de Variantes */}
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              flexWrap: "wrap",
-              marginBottom: "20px",
-            }}
-          ></div>
+          
+          <ProductImageSlider
+            images={sliderImages}
+            config={mySliderConfig}
+            className="custom-swiper-container"
+          />
         </div>
+        </div>
+
+
+
 
         <div className="first_container_product_information">
           <div className="product_information">
@@ -120,15 +150,61 @@ export default function ProductPage() {
             <h3 className="colections no_margin">{firstCollection}</h3>{" "}
              <h1>{product.titulo}</h1>
              <div className="price_container">
-              <p className="no_margin" >Total: {formattedTotal} <span className="price_doll">Col</span></p>
-              <p className="no_margin" >Total: {formattedsinDescuento} <span className="price_doll">Col</span></p> 
+                <p className="no_margin price_after_discount"><span className="line-through">{formattedsinDescuento}</span> <span className="price_doll">Col</span></p> 
+                <p className="no_margin" >Total: {formattedTotal} <span className="price_doll">Col</span></p>
              </div>
-
+            {/* Esto debería de ser positivo si existira un descuento pero yo solo lo muestro por razones esteticas */}
             {porcentajeDescuento == 0 && (
-            <div className="text-red-600 font-semibold">
-              <p>{porcentajeDescuento}% OFF</p>
+              <div className="text-red-600 font-semibold tag_discount">
+                <p className="discount_title">- {porcentajeDescuento}% OFF</p>
+              </div>
+            )}
+
+
+
+              {/*Color*/}
+          <div className="index_variant_container color_parent">
+            <span className="color_title">
+              Color:
+            </span>
+            <div className="color_container">
+              {product.variantes && product.variantes.length > 0 ? (
+                // Filtra colores únicos antes de renderizar
+                Array.from(
+                  new Set(product.variantes.map((variante) => variante.color))
+                ).map((color, idx) => (
+                  <button className="color no_margin" key={idx} data-color={color}>
+                    {color || "N/A"}
+                  </button>
+                ))
+              ) : (
+                <p className="color no_margin">Color: N/A</p>
+              )}
             </div>
-          )}
+          </div>
+
+
+
+            {/*Talla*/}
+            <div className="index_variant_container talla_parent">
+            <span className="talla_title">
+              Talla:
+            </span>
+              <div className="talla_container">
+              {product.variantes && product.variantes.length > 0 ? (
+                product.variantes.map((variante, idx) => (
+                  <button className="talla no_margin" key={idx} >
+                    {variante.talla || "N/A"}
+                  </button>
+                ))
+              ) : (
+                <p className="talla no_margin">Talla: N/A</p>
+              )}
+              </div>
+            </div>
+
+
+
 
             <p className="marca no_margin" >Marca: {product.marca}</p>
             <p className="no_margin" >Referencia: {product.referencia}</p>
@@ -140,8 +216,25 @@ export default function ProductPage() {
 
 
           <div className="product_information">
-            <h3>Detalles de la Variante Seleccionada:</h3>
-            <p>{product.descripcion}</p>
+            <h3>Información del producto: </h3>
+            <div className="enclose_information_acordeon">
+        
+              <ExpandableSection title="Descripción" defaultOpen={true}>
+                <p className="info_p">{product.descripcion}</p>
+              </ExpandableSection>
+              <hr className="guntam_line_expandible"></hr>
+              {/*Como el contenido recibe un html pongo esto así: */}
+              <ExpandableSection title="Características" defaultOpen={true}>
+                <div className="info_p" dangerouslySetInnerHTML={{ __html: product.caracteristicas }} />
+              </ExpandableSection>
+              <hr className="guntam_line_expandible"></hr>
+              <ExpandableSection title="Cuidado" defaultOpen={true}>
+                <p className="info_p">{product.cuidados}</p>
+              </ExpandableSection>
+            </div>
+
+            
+
           </div>
         </div>
       </section>
